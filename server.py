@@ -166,3 +166,18 @@ def find_by_uuid(unique_identifier):
             return person
     # Return JSON response message and a 404 Not Found if no matching is found
     return {"message": "person not found"}, 404
+
+
+@app.route("/person/<uuid:id>", methods=['DELETE'])
+def delete_by_uuid(id):
+    """Delete a person in the database by their unique identifier (UUID)."""
+    # Iterate through 'data' to search for a person with a matching ID
+    for person in data:
+        # Check if the 'id' field of the person matches the 'id' parameter
+        if person["id"] == str(id):
+            # Remove the person from the 'data' list
+            data.remove(person)
+            # Return a JSON a message confirming deletion and a 200 OK sc
+            return {"message": f"Person with ID {id} deleted"}, 200
+    # If no matching return a JSON message and a 404 Not Found status code
+    return {"message": "person not found"}, 404
