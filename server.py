@@ -146,3 +146,23 @@ def count():
         A JSON response with the count of items in the data list.
     """
     return {"data_count": len(data)}
+
+
+@app.route("/person/<uuid:unique_identifier>")
+def find_by_uuid(unique_identifier):
+    """Find a person in the database by their unique identifier (UUID).
+
+    Args:
+        unique_identifier: The UUID of the person to find.
+
+    Returns:
+        A JSON response with the person's data if found,
+        or an error message with a 404 status code if not found.
+    """
+    # Iterate through the 'data' list to search for a person with a matching ID
+    for person in data:
+        if person["id"] == str(unique_identifier):
+            # Return the person as a JSON response if a match is found
+            return person
+    # Return JSON response message and a 404 Not Found if no matching is found
+    return {"message": "person not found"}, 404
