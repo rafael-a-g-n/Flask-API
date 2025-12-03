@@ -116,7 +116,7 @@ def name_search():
 
     Returns:
         tuple:
-        A JSON response with the person's data and a 200 status code if found.
+        A JSON response with the person\'s data and a 200 status code if found.
         A JSON response with an error message and a 400,
         422, or 404 status code otherwise.
     """
@@ -136,3 +136,13 @@ def name_search():
 
     return ({"message": "Person not found"},
             404)
+
+
+@app.route("/count")
+def count():
+    """Returns the number of items in the data list.
+
+    Returns:
+        A JSON response with the count of items in the data list.
+    """
+    return {"data_count": len(data)}
