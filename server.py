@@ -148,6 +148,25 @@ def count():
     return {"data_count": len(data)}
 
 
+@app.route("/person", methods=["POST"])
+def add_by_uuid():
+    """Add a new person from the JSON body.
+
+    Returns:
+        - JSON with the new person's `id` and HTTP 200 on success.
+        - JSON with an error message and HTTP 422 if the body is missing/empty.
+    """
+    new_person = request.get_json()
+
+    # Validate presence of JSON body (simple check for this exercise)
+    if not new_person:
+        return {"message": "Invalid input parameter"}, 422
+
+    # Append the new person to the in-memory list and return the id
+    data.append(new_person)
+    return {"id": new_person.get("id")}, 200
+
+
 @app.route("/person/<uuid:unique_identifier>")
 def find_by_uuid(unique_identifier):
     """Find a person in the database by their unique identifier (UUID).
