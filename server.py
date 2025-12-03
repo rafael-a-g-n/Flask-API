@@ -187,6 +187,15 @@ def find_by_uuid(unique_identifier):
     return {"message": "person not found"}, 404
 
 
+@app.errorhandler(404)
+def api_not_found(error):
+    """Return JSON response for requests to undefined routes.
+
+    This ensures the server returns JSON (not HTML) for 404 errors.
+    """
+    return {"message": "API not found"}, 404
+
+
 @app.route("/person/<uuid:id>", methods=['DELETE'])
 def delete_by_uuid(id):
     """Delete a person in the database by their unique identifier (UUID)."""
